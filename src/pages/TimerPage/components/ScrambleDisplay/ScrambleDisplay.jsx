@@ -1,18 +1,20 @@
 import './ScrambleDisplay.css';
 
-export default function ScrambleDisplay({ canRegenerate, scramble, isLoading, onRegenerate }) {
-    if (isLoading || !scramble) {
-        return <div className='scramble-container'>Generating scramble..</div>
-    }
-
+export default function ScrambleDisplay({ timerStatus, scramble, isLoading, onRegenerate }) {
     return (
         <div className='scramble-container'>
-            [{scramble.eventName}] : {scramble.scrambleText}
+            <p className='scramble-text'>
+                {isLoading || !scramble
+                 ? 'Generating scramble..'
+                 : timerStatus === 'stopped'
+                 ? 'Press Spacebar to reset'
+                 : scramble.scrambleText}
+            </p>
             <button 
                 className='regen-button'
                 type="button"
                 onClick={() => onRegenerate()}
-                disabled={isLoading || !canRegenerate}
+                disabled={isLoading || timerStatus !== 'idle'}
             >
                 Next Scramble
             </button>

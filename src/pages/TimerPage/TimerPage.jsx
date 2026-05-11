@@ -7,6 +7,8 @@ import './TimerPage.css';
 export default function Timer() {
     const { scramble, isLoading, nextScramble } = useScramble('333');
     const [canRegenerate, setCanRegenrate] = useState(true);
+    // idle, ready, running, stopped
+    const [timerStatus, setTimerStatus] = useState('idle');
 
     function handleStop(finalTimeMs) {
         if (!scramble) return;
@@ -19,19 +21,18 @@ export default function Timer() {
     return (
         <div className="cube-timer">
             <ScrambleDisplay
+                timerStatus={timerStatus}
                 scramble={scramble}
                 isLoading={isLoading}
-                canRegenerate={canRegenerate}
                 onRegenerate={nextScramble}
             />
 
             <Stopwatch 
+                timerStatus={timerStatus}
+                setTimerStatus={setTimerStatus}
                 onStart={() => setCanRegenrate(false)}
                 onStop={handleStop} 
-                onReset={() => {
-                    nextScramble();
-                    setCanRegenrate(true)}
-                }
+                onReset={nextScramble}
             />
         </div>
     );

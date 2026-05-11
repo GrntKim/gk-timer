@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import './Stopwatch.css';
 
-export default function Stopwatch({ onStart, onStop, onReset }) {
+export default function Stopwatch({ timerStatus, setTimerStatus, onStart, onStop, onReset }) {
     const [elapsedMs, setElapsedMs] = useState(0);
-    // idle, ready, running, stopped
-    const [timerStatus, setTimerStatus] = useState('idle');
 
     const startTimeRef = useRef(null);
     const frameRef = useRef(null);
