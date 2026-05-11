@@ -1,4 +1,4 @@
-import './Timer.css';
+import './TimerPage.css';
 
 export default function Timer() {
     return (
