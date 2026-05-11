@@ -1,5 +1,5 @@
 header {
-    padding: 1em;
+    padding: 1em 1em;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -23,5 +23,4 @@ a:hover {
     padding: 0;
     display: flex;
     list-style: none;
-    gap: 0.5em;
 }

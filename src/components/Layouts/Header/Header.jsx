@@ -4,7 +4,7 @@ export default function Header() {
     return (
         <header>
             <div className="logo">
-                GK-TIMER <em>BETA</em>
+                <a href="/">GK-TIMER <em>BETA</em></a>
             </div>
             <div className="menus">
                 <ul className="list-menus">
