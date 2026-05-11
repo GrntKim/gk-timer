@@ -9,9 +9,9 @@ export default function Header() {
             </div>
             <div className="menus">
                 <ul className="list-menus">
-                    <li><NavLink to="/menu1">Menu1</NavLink></li>
-                    <li><NavLink to="/menu2">Menu2</NavLink></li>
-                    <li><NavLink to="/menu3">Menu3</NavLink></li>
+                    <li><NavLink to="/">Timer</NavLink></li>
+                    <li><NavLink to="/setup">Settings</NavLink></li>
+                    <li><NavLink to="/about">About</NavLink></li>
                 </ul>
             </div>
         </header>
