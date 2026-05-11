@@ -5,6 +5,8 @@ export default function Stopwatch({ onStart, onStop, onReset }) {
     const [isRunning, setIsRunning] = useState(false);
     const [elapsedMs, setElapsedMs] = useState(0);
     const [canRun, setCanRun] = useState(true);
+    // idle, ready, running, stopped
+    const [timerStatus, setTimerStatus] = useState('idle');
 
     const startTimeRef = useRef(null);
     const frameRef = useRef(null);
@@ -48,20 +50,45 @@ export default function Stopwatch({ onStart, onStop, onReset }) {
 
     useEffect(() => {
         function handleKeyDown(e) {
-            if (e.code === 'Space' && !e.repeat) {
-                e.preventDefault();
-                if (isRunning) stop();
-                else if (canRun) start();
-                else reset();
+            if (e.code !== 'Space' || e.repeat) return;
+            e.preventDefault();
+
+            if (timerStatus === 'idle') {
+                setTimerStatus('ready');
+                return;
+            }
+
+            if (timerStatus === 'running') {
+                stop();
+                setTimerStatus('stopped');
+                return;
+            }
+
+            if (timerStatus === 'stopped') {
+                reset();
+                setTimerStatus('idle');
+                return;
+            }
+        }
+
+        function handleKeyUp(e) {
+            if (e.code !== 'Space') return;
+            e.preventDefault();
+
+            if (timerStatus === 'ready') {
+                start();
+                setTimerStatus('running');
             }
         }
 
         window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('keyup', handleKeyUp);
 
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('keyup', handleKeyUp);
         }
-    }, [isRunning, elapsedMs, canRun])
+    }, [timerStatus])
 
     useEffect(() => {
         if (!isRunning) return;
@@ -80,7 +107,12 @@ export default function Stopwatch({ onStart, onStop, onReset }) {
 
     return (
         <div className='stopwatch-container'>
-            <div className='time-display'>{formatTime(elapsedMs)}</div>
+            <div className={timerStatus === 'ready' 
+                            ? 'time-display ready'
+                            : 'time-display'}
+            >
+                {formatTime(elapsedMs)}
+            </div>
             <button 
                 className='reset-button' 
                 onClick={reset} 
