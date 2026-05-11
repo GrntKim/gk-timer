@@ -2,9 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import './Stopwatch.css';
 
 export default function Stopwatch({ onStart, onStop, onReset }) {
-    const [isRunning, setIsRunning] = useState(false);
     const [elapsedMs, setElapsedMs] = useState(0);
-    const [canRun, setCanRun] = useState(true);
     // idle, ready, running, stopped
     const [timerStatus, setTimerStatus] = useState('idle');
 
@@ -26,10 +24,7 @@ export default function Stopwatch({ onStart, onStop, onReset }) {
     }
 
     function start() {
-        if (!canRun) return;
-        setCanRun(false);
         startTimeRef.current = performance.now() - elapsedMs;
-        setIsRunning(true);
         onStart();
     }
 
@@ -37,14 +32,13 @@ export default function Stopwatch({ onStart, onStop, onReset }) {
         const finalTimeMs = performance.now() - startTimeRef.current;
 
         setElapsedMs(finalTimeMs);
-        setIsRunning(false);
         onStop(finalTimeMs);
     }
 
     function reset() {
         setElapsedMs(0);
         startTimeRef.current = null;
-        setCanRun(true);
+        setTimerStatus('idle');
         onReset();
     }
 
@@ -66,7 +60,6 @@ export default function Stopwatch({ onStart, onStop, onReset }) {
 
             if (timerStatus === 'stopped') {
                 reset();
-                setTimerStatus('idle');
                 return;
             }
         }
@@ -91,7 +84,7 @@ export default function Stopwatch({ onStart, onStop, onReset }) {
     }, [timerStatus])
 
     useEffect(() => {
-        if (!isRunning) return;
+        if (timerStatus !== 'running') return;
 
         function tick(now) {
             setElapsedMs(now - startTimeRef.current);
@@ -103,7 +96,7 @@ export default function Stopwatch({ onStart, onStop, onReset }) {
         return () => {
             cancelAnimationFrame(frameRef.current);
         }
-    }, [isRunning]);
+    }, [timerStatus]);
 
     return (
         <div className='stopwatch-container'>
@@ -116,7 +109,7 @@ export default function Stopwatch({ onStart, onStop, onReset }) {
             <button 
                 className='reset-button' 
                 onClick={reset} 
-                hidden={isRunning || canRun}>
+                hidden={timerStatus !== 'stopped'}>
                 Reset
             </button>
         </div>
