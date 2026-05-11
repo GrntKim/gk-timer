@@ -1,0 +1,19 @@
+.stopwatch-container {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.reset-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+}
+
+.time-display {
+    font-size: 32px;
+    font-weight: bold;
+}

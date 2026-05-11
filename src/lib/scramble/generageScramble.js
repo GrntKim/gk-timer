@@ -5,8 +5,8 @@ export async function generateScramble(event = '333') {
     const alg = await randomScrambleForEvent(event);
 
     return {
-        event,
-        sequence: alg.toString(),
+        eventName: event.toString(),
+        scrambleText: alg.toString(),
         generatedAt: Date.now(),
     }
 }
