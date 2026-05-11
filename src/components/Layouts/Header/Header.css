@@ -1,0 +1,27 @@
+header {
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+a {
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+a:hover {
+    background-color: #eee;
+}
+
+.menus .list-menus {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    gap: 0.5em;
+}
