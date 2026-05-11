@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
-import Footer from "./components/Layouts/Footer/Footer";
-import Header from "./components/Layouts/Header/Header";
-import Timer from "./components/Pages/Timer/Timer";
-import SettingsPage from './components/Pages/SettingsPage/SettingsPage';
-import AboutPage from './components/Pages/AboutPage/AboutPage';
+import Footer from "./layouts/Footer/Footer";
+import Header from "./layouts/Header/Header";
+import Timer from "./pages/Timer/Timer";
+import SettingsPage from './pages/SettingsPage/SettingsPage';
+import AboutPage from './pages/AboutPage/AboutPage';
 import "./App.css";
 
 function App() {
