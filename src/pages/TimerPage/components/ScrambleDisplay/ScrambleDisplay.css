@@ -1,0 +1,14 @@
+.scramble-container {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.regen-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+}

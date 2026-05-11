@@ -10,7 +10,7 @@ export default function Timer() {
             <ScrambleDisplay
                 scramble={scramble}
                 isLoading={isLoading}
-                onNextScramble={nextScramble}
+                onRegenerate={nextScramble}
             />
         </div>
     );
