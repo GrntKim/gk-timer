@@ -21,3 +21,7 @@
 .time-display.ready {
     color: green;
 }
+
+.time-display.running {
+    color: blue;
+}

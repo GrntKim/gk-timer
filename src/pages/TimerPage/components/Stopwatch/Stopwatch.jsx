@@ -102,6 +102,8 @@ export default function Stopwatch({ onStart, onStop, onReset }) {
         <div className='stopwatch-container'>
             <div className={timerStatus === 'ready' 
                             ? 'time-display ready'
+                            : timerStatus === 'running'
+                            ? 'time-display running'
                             : 'time-display'}
             >
                 {formatTime(elapsedMs)}
