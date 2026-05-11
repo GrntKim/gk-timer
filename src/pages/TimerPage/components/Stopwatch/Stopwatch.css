@@ -7,7 +7,14 @@
     gap: 2rem;
 }
 
-.reset-button {
+.btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.btn-container button {
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 5px;

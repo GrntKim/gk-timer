@@ -6,16 +6,19 @@ import './TimerPage.css';
 
 export default function Timer() {
     const { scramble, isLoading, nextScramble } = useScramble('333');
-    const [canRegenerate, setCanRegenrate] = useState(true);
     // idle, ready, running, stopped
     const [timerStatus, setTimerStatus] = useState('idle');
+    const [penalty, setPenalty] = useState('none');
 
-    function handleStop(finalTimeMs) {
+    function handleStop(finalTimeMs, penalty, timeText) {
         if (!scramble) return;
         console.log({
             timeMs: finalTimeMs,
             scramble,
+            penalty: penalty,
+            timeText: timeText,
         });
+        nextScramble();
     }
 
     return (
@@ -30,9 +33,9 @@ export default function Timer() {
             <Stopwatch 
                 timerStatus={timerStatus}
                 setTimerStatus={setTimerStatus}
-                onStart={() => setCanRegenrate(false)}
-                onStop={handleStop} 
-                onReset={nextScramble}
+                onReset={handleStop}
+                penalty={penalty}
+                setPenalty={setPenalty}
             />
         </div>
     );

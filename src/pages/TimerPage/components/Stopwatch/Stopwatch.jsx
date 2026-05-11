@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './Stopwatch.css';
 
-export default function Stopwatch({ timerStatus, setTimerStatus, onStart, onStop, onReset }) {
+export default function Stopwatch({ timerStatus, setTimerStatus, onReset, penalty, setPenalty}) {
     const [elapsedMs, setElapsedMs] = useState(0);
 
     const startTimeRef = useRef(null);
@@ -23,21 +23,20 @@ export default function Stopwatch({ timerStatus, setTimerStatus, onStart, onStop
 
     function start() {
         startTimeRef.current = performance.now() - elapsedMs;
-        onStart();
     }
 
     function stop() {
         const finalTimeMs = performance.now() - startTimeRef.current;
 
         setElapsedMs(finalTimeMs);
-        onStop(finalTimeMs);
     }
 
     function reset() {
+        onReset(elapsedMs, penalty, getDisplayTime());
+        setPenalty('none');
         setElapsedMs(0);
         startTimeRef.current = null;
         setTimerStatus('idle');
-        onReset();
     }
 
     useEffect(() => {
@@ -79,7 +78,7 @@ export default function Stopwatch({ timerStatus, setTimerStatus, onStart, onStop
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keyup', handleKeyUp);
         }
-    }, [timerStatus])
+    }, [timerStatus, elapsedMs, penalty])
 
     useEffect(() => {
         if (timerStatus !== 'running') return;
@@ -94,7 +93,19 @@ export default function Stopwatch({ timerStatus, setTimerStatus, onStart, onStop
         return () => {
             cancelAnimationFrame(frameRef.current);
         }
-    }, [timerStatus]);
+    }, [timerStatus, elapsedMs, penalty]);
+
+    function getDisplayTime() {
+        if (penalty === 'DNF') {
+            return 'DNF';
+        }
+
+        if (penalty === '+2') {
+            return `+${formatTime(elapsedMs + 2000)}`;
+        }
+        
+        return formatTime(elapsedMs);
+    }
 
     return (
         <div className='stopwatch-container'>
@@ -104,14 +115,36 @@ export default function Stopwatch({ timerStatus, setTimerStatus, onStart, onStop
                             ? 'time-display running'
                             : 'time-display'}
             >
-                {formatTime(elapsedMs)}
+                {getDisplayTime()}
             </div>
-            <button 
-                className='reset-button' 
-                onClick={reset} 
-                hidden={timerStatus !== 'stopped'}>
-                Reset
-            </button>
+            <div className="btn-container">
+                <button
+                    className='reset-button'
+                    onClick={reset}
+                    hidden={timerStatus !== 'stopped'}>
+                    Continue
+                </button>
+                <button
+                    className='plus-two-button'
+                    onClick={() => {
+                        if (penalty === 'none') setPenalty('+2');
+                        else if (penalty === '+2') setPenalty('none');
+                    }}
+                    disabled={penalty === 'DNF'}
+                    hidden={timerStatus !== 'stopped'}>
+                    +2
+                </button>
+                <button
+                    className='dnf-button'
+                    onClick={() => {
+                        if (penalty === 'none') setPenalty('DNF');
+                        else if (penalty === 'DNF') setPenalty('none');
+                    }}
+                    disabled={penalty === '+2'}
+                    hidden={timerStatus !== 'stopped'}>
+                    DNF
+                </button>
+            </div>
         </div>
     );
 }

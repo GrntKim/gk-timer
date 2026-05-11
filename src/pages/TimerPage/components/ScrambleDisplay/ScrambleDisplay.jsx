@@ -7,7 +7,7 @@ export default function ScrambleDisplay({ timerStatus, scramble, isLoading, onRe
                 {isLoading || !scramble
                  ? 'Generating scramble..'
                  : timerStatus === 'stopped'
-                 ? 'Press Spacebar to reset'
+                 ? 'Press Spacebar to continue'
                  : scramble.scrambleText}
             </p>
             <button 
