@@ -41,23 +41,43 @@ export default function Stopwatch({ timerStatus, setTimerStatus, onReset, penalt
 
     useEffect(() => {
         function handleKeyDown(e) {
-            if (e.code !== 'Space' || e.repeat) return;
-            e.preventDefault();
-
-            if (timerStatus === 'idle') {
-                setTimerStatus('ready');
+            if (e.code === 'Escape') {
+                e.preventDefault();
+                if (e.repeat || timerStatus !== 'stopped') return;
+                setPenalty('none');
                 return;
-            }
-
-            if (timerStatus === 'running') {
-                stop();
-                setTimerStatus('stopped');
+            } 
+            if (e.code === 'Digit1') {
+                if (e.repeat || timerStatus !== 'stopped') return;
+                if (penalty === '+2') setPenalty('none');
+                else setPenalty('+2');
                 return;
-            }
-
-            if (timerStatus === 'stopped') {
-                reset();
+            } 
+            if (e.code === 'Digit2') {
+                if (e.repeat || timerStatus !== 'stopped') return;
+                if (penalty === 'DNF') setPenalty('none');
+                else setPenalty('DNF');
                 return;
+            } 
+            if (e.code === 'Space') {
+                if (e.repeat) return;
+                e.preventDefault();
+
+                if (timerStatus === 'idle') {
+                    setTimerStatus('ready');
+                    return;
+                }
+
+                if (timerStatus === 'running') {
+                    stop();
+                    setTimerStatus('stopped');
+                    return;
+                }
+
+                if (timerStatus === 'stopped') {
+                    reset();
+                    return;
+                }
             }
         }
 
@@ -109,11 +129,12 @@ export default function Stopwatch({ timerStatus, setTimerStatus, onReset, penalt
 
     return (
         <div className='stopwatch-container'>
-            <div className={timerStatus === 'ready' 
-                            ? 'time-display ready'
+            <div className={'time-display' + 
+                            (timerStatus === 'ready' 
+                            ? ' ready'
                             : timerStatus === 'running'
-                            ? 'time-display running'
-                            : 'time-display'}
+                            ? ' running'
+                            : '')}
             >
                 {getDisplayTime()}
             </div>
@@ -125,24 +146,24 @@ export default function Stopwatch({ timerStatus, setTimerStatus, onReset, penalt
                     Continue
                 </button>
                 <button
-                    className='plus-two-button'
+                    className={'pt-button' + (penalty === '+2' ? ' active' : '')}
                     onClick={() => {
-                        if (penalty === 'none') setPenalty('+2');
-                        else if (penalty === '+2') setPenalty('none');
+                        if (penalty === '+2') setPenalty('none');
+                        else setPenalty('+2');
                     }}
-                    disabled={penalty === 'DNF'}
-                    hidden={timerStatus !== 'stopped'}>
-                    +2
+                    hidden={timerStatus !== 'stopped'}
+                >
+                    {penalty === '+2' ? 'Cancel' : '+2'}
                 </button>
                 <button
-                    className='dnf-button'
+                    className={'dnf-button' + (penalty === 'DNF' ? ' active' : '')}
                     onClick={() => {
-                        if (penalty === 'none') setPenalty('DNF');
-                        else if (penalty === 'DNF') setPenalty('none');
+                        if (penalty === 'DNF') setPenalty('none');
+                        else setPenalty('DNF');
                     }}
-                    disabled={penalty === '+2'}
-                    hidden={timerStatus !== 'stopped'}>
-                    DNF
+                    hidden={timerStatus !== 'stopped'}
+                >
+                    {penalty === 'DNF' ? 'Cancel' : 'DNF'}
                 </button>
             </div>
         </div>
