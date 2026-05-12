@@ -21,7 +21,7 @@
 .record-container {
     --record-header-row-height: 2.75rem;
     padding-right: 1.5em;
-    max-height: 90vh;
+    max-height: 75vh;
     overflow-y: auto;
     background-color: white;
     overscroll-behavior: none;
