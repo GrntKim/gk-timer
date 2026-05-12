@@ -7,11 +7,10 @@ export default function RecordsDisplay({ solve, num, onEdit, onDelete}) {
         <tr className='solve-item'>
             <td>{num}. </td>
             <td>
-                {solve.penalty === 'DNF' ? (
-                    <s>{timeText}</s>
-                ) : (
-                    timeText
-                )}
+                {solve.penalty === 'DNF' 
+                ? (<s>{timeText}</s>) 
+                : (timeText)
+                }
             </td>
             <td>{solve.eventId}</td>
             <td>{solve.scramble.scrambleText}</td>
