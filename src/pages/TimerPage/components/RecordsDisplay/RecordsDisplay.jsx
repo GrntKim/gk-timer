@@ -4,14 +4,21 @@ import './RecordsDisplay.css';
 export default function RecordsDisplay({ solves, timerStatus, resetSolves, editSolve, deleteSolve }) {
     return (
         <div className="record-container">
-            <button className="timer-reset-btn"
-                onClick={() => {
-                    if(timerStatus === 'idle' && solves.length !== 0 && confirm("Are you sure you want to delete all records?")) {
-                        resetSolves();
-                    }
-                }}>Reset</button>
             <table className='solve-list'>
                 <thead>
+                    <tr>
+                        <th colSpan={7}>
+                            <button className="timer-reset-btn"
+                                onClick={() => {
+                                    if(solves.length !== 0 && confirm("Are you sure you want to delete all records?")) {
+                                        resetSolves();
+                                    }
+                                }}
+                                disabled={timerStatus !== 'idle'}>
+                                Reset
+                            </button>
+                        </th>
+                    </tr>
                     <tr>
                         <th>NO.</th>
                         <th>Time</th>

@@ -1,18 +1,17 @@
 .container {
     display: flex;
-    justify-content: center;
+    align-items: flex-start;
     gap: 1.5rem;
 }
 
-.timer, .records{
+.timer-scramble,
+.record-container {
     flex: 1;
-}
-.cube-timer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
+    min-width: 0;
 }
 
+.timer-scramble {
+    display: flex;
+    flex-direction: column;
+}
 

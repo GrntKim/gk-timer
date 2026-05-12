@@ -26,26 +26,30 @@ export default function Timer() {
 
     return (
         <div className='container'>
-            <ScrambleDisplay
-                timerStatus={timerStatus}
-                scramble={scramble}
-                isLoading={isLoading}
-                onRegenerate={nextScramble}
-            />
-            <Stopwatch
-                timerStatus={timerStatus}
-                setTimerStatus={setTimerStatus}
-                onReset={handleStop}
-                penalty={penalty}
-                setPenalty={setPenalty}
-            />
-            <RecordsDisplay 
-                solves={solves}
-                timerStatus={timerStatus}
-                resetSolves={resetSolves}
-                editSolve={editSolve}
-                deleteSolve={deleteSolve}
-            />
+            <div className="timer-scramble">
+                <ScrambleDisplay
+                    timerStatus={timerStatus}
+                    scramble={scramble}
+                    isLoading={isLoading}
+                    onRegenerate={nextScramble}
+                />
+                <Stopwatch
+                    timerStatus={timerStatus}
+                    setTimerStatus={setTimerStatus}
+                    onReset={handleStop}
+                    penalty={penalty}
+                    setPenalty={setPenalty}
+                />
+            </div>
+            <div className="record-container">
+                <RecordsDisplay
+                    solves={solves}
+                    timerStatus={timerStatus}
+                    resetSolves={resetSolves}
+                    editSolve={editSolve}
+                    deleteSolve={deleteSolve}
+                />
+            </div>
         </div>
     );
 }
