@@ -4,6 +4,7 @@ import { useScramble } from '../../hooks/useScramble';
 import ScrambleDisplay from './components/ScrambleDisplay/ScrambleDisplay';
 import Stopwatch from './components/Stopwatch/Stopwatch';
 import './TimerPage.css';
+import RecordsDisplay from './components/RecordsDisplay/RecordsDisplay';
 
 export default function Timer() {
     const { scramble, isLoading, nextScramble } = useScramble('333');
@@ -14,36 +15,52 @@ export default function Timer() {
 
     function handleStop(timeMs, penalty) {
         if (!scramble) return;
-        const solve = addSolve({
+        addSolve({
             eventId: scramble.eventName,
             timeMs,
             penalty,
             scramble,
         });
         nextScramble();
-        console.log(solve);
     }
 
-    useEffect(() => {
-        console.log(solves);
-    }, [solves])
-
     return (
-        <div className="cube-timer">
-            <ScrambleDisplay
-                timerStatus={timerStatus}
-                scramble={scramble}
-                isLoading={isLoading}
-                onRegenerate={nextScramble}
-            />
-
-            <Stopwatch 
-                timerStatus={timerStatus}
-                setTimerStatus={setTimerStatus}
-                onReset={handleStop}
-                penalty={penalty}
-                setPenalty={setPenalty}
-            />
+        <div className='container'>
+            <div className="timer">
+                <div className="cube-timer">
+                    <ScrambleDisplay
+                        timerStatus={timerStatus}
+                        scramble={scramble}
+                        isLoading={isLoading}
+                        onRegenerate={nextScramble}
+                    />
+                    <Stopwatch
+                        timerStatus={timerStatus}
+                        setTimerStatus={setTimerStatus}
+                        onReset={handleStop}
+                        penalty={penalty}
+                        setPenalty={setPenalty}
+                    />
+                </div>
+            </div>
+            <div className="records">
+                <table className='solve-list'>
+                    <thead>
+                        <tr>
+                            <th>NO.</th>
+                            <th>Time</th>
+                            <th>Event</th>
+                            <th>Scramble</th>
+                            <th>Penalty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {solves.map((solve, index) => (
+                            <RecordsDisplay num={solves.length - index} key={solve.id} solve={solve} />
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

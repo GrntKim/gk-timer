@@ -1,7 +1,32 @@
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.timer, .records{
+    flex: 1;
+}
 .cube-timer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     flex: 1;
+}
+
+
+.solve-list {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.solve-list th,
+.solve-list td {
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.solve-list tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
 }

@@ -1,3 +1,4 @@
+import { formatTime } from '../../../../lib/time/formatTime';
 import { useEffect, useRef, useState } from 'react';
 import './Stopwatch.css';
 
@@ -6,20 +7,6 @@ export default function Stopwatch({ timerStatus, setTimerStatus, onReset, penalt
 
     const startTimeRef = useRef(null);
     const frameRef = useRef(null);
-
-    function formatTime(ms) {
-        const totalCentiseconds = Math.floor(ms/10);
-        const centiseconds = totalCentiseconds % 100;
-        const totalSeconds = Math.floor(totalCentiseconds / 100);
-        const seconds = totalSeconds % 60;
-        const minutes = Math.floor(totalSeconds / 60);
-
-        if (minutes > 0) {
-            return `${minutes}:${String(seconds).padStart(2, '0')}.${String(centiseconds).padStart(2, '0')}`;
-        }
-
-        return `${seconds}.${String(centiseconds).padStart(2, '0')}`;
-    }
 
     function start() {
         startTimeRef.current = performance.now() - elapsedMs;
