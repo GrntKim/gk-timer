@@ -30,8 +30,13 @@ export function useSolves() {
         return solve;
     }
 
+    function resetSolves() {
+        setSolves([]);
+    }
+
     return {
         solves,
         addSolve,
+        resetSolves,
     };
 }

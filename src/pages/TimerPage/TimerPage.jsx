@@ -1,5 +1,5 @@
 import { useSolves } from '../../hooks/useSolves';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useScramble } from '../../hooks/useScramble';
 import ScrambleDisplay from './components/ScrambleDisplay/ScrambleDisplay';
 import Stopwatch from './components/Stopwatch/Stopwatch';
@@ -8,7 +8,7 @@ import RecordsDisplay from './components/RecordsDisplay/RecordsDisplay';
 
 export default function Timer() {
     const { scramble, isLoading, nextScramble } = useScramble('333');
-    const { solves, addSolve } = useSolves();
+    const { solves, addSolve, resetSolves } = useSolves();
     // idle, ready, running, stopped
     const [timerStatus, setTimerStatus] = useState('idle');
     const [penalty, setPenalty] = useState('none');
@@ -44,6 +44,12 @@ export default function Timer() {
                 </div>
             </div>
             <div className="records">
+                <button className="timer-reset-btn"
+                        onClick={() => {
+                            if(solves.length !== 0 && confirm("Are you sure you want to delete all records?")) {
+                                resetSolves();
+                            }
+                        }}>Reset</button>
                 <table className='solve-list'>
                     <thead>
                         <tr>
