@@ -16,17 +16,3 @@
 }
 
 
-.solve-list {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.solve-list th,
-.solve-list td {
-    padding: 0.5rem;
-    text-align: left;
-}
-
-.solve-list tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
