@@ -8,7 +8,7 @@ import RecordsDisplay from './components/RecordsDisplay/RecordsDisplay';
 
 export default function Timer() {
     const { scramble, isLoading, nextScramble } = useScramble('333');
-    const { solves, addSolve, resetSolves } = useSolves();
+    const { solves, addSolve, resetSolves, editSolve, deleteSolve } = useSolves();
     // idle, ready, running, stopped
     const [timerStatus, setTimerStatus] = useState('idle');
     const [penalty, setPenalty] = useState('none');
@@ -58,11 +58,23 @@ export default function Timer() {
                             <th>Event</th>
                             <th>Scramble</th>
                             <th>Penalty</th>
+                            <th>Delete</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
                         {solves.map((solve, index) => (
-                            <RecordsDisplay num={solves.length - index} key={solve.id} solve={solve} />
+                            <RecordsDisplay 
+                                num={solves.length - index} 
+                                key={solve.id} 
+                                solve={solve} 
+                                onEdit={() => editSolve(solve.id)}
+                                onDelete={() => {
+                                    if(confirm("Are you sure you want to delete this record?")) {
+                                        deleteSolve(solve.id)
+                                    }
+                                }}
+                            />
                         ))}
                     </tbody>
                 </table>

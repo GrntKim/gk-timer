@@ -1,7 +1,7 @@
 import { formatTime } from '../../../../lib/time/formatTime';
 import './RecordsDisplay.css';
 
-export default function RecordsDisplay({ solve, num }) {
+export default function RecordsDisplay({ solve, num, onEdit, onDelete}) {
     const timeText = formatTime(solve.timeMs, solve.penalty);
     return (
         <tr className='solve-item'>
@@ -16,6 +16,8 @@ export default function RecordsDisplay({ solve, num }) {
             <td>{solve.eventId}</td>
             <td>{solve.scramble.scrambleText}</td>
             <td>{solve.penalty === 'none' ? '' : solve.penalty}</td>
+            <td><button onClick={onDelete}>Delete</button></td>
+            <td><button onClick={onEdit}>Edit</button></td>
         </tr>
     );
 }

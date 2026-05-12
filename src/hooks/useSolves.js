@@ -34,9 +34,21 @@ export function useSolves() {
         setSolves([]);
     }
 
+    function editSolve(toEditId) {
+        alert('Under Construction');
+        return;
+    }
+
+    function deleteSolve(toDeleteId) {
+        setSolves((prevSolves) => prevSolves.filter((solve) => solve.id !== toDeleteId));
+        return;
+    }
+
     return {
         solves,
         addSolve,
         resetSolves,
+        editSolve,
+        deleteSolve,
     };
 }
