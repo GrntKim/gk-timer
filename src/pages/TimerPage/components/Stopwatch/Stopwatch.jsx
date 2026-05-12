@@ -32,7 +32,7 @@ export default function Stopwatch({ timerStatus, setTimerStatus, onReset, penalt
     }
 
     function reset() {
-        onReset(elapsedMs, penalty, getDisplayTime());
+        onReset(elapsedMs, penalty);
         setPenalty('none');
         setElapsedMs(0);
         startTimeRef.current = null;
