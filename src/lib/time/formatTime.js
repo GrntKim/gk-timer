@@ -1,9 +1,9 @@
 export function formatTime(ms, penalty='none') {
     const totalCentiseconds = Math.floor(ms/10);
     const centiseconds = totalCentiseconds % 100;
-    const totalSeconds = Math.floor(totalCentiseconds / 100);
-    let seconds = totalSeconds % 60;
-    seconds = (penalty === '+2') ? seconds + 2 : seconds;
+    let totalSeconds = Math.floor(totalCentiseconds / 100);
+    totalSeconds = (penalty === '+2') ? totalSeconds + 2 : totalSeconds;
+    const seconds = totalSeconds % 60;
     const minutes = Math.floor(totalSeconds / 60);
 
     if (minutes > 0) {
