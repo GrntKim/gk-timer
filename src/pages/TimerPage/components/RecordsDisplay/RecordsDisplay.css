@@ -10,7 +10,8 @@
 
 .solve-list th,
 .solve-list td {
-    padding: 0.5rem;
+    height: var(--record-row-height);
+    padding: 0 0.5rem;
     text-align: left;
 }
 
@@ -20,8 +21,13 @@
 
 .record-container {
     --record-header-row-height: 2.75rem;
+    --record-row-height: 2.5rem;
+    --visible-record-rows: 12;
     padding-right: 1.5em;
-    max-height: 75vh;
+    max-height: calc(
+        var(--record-header-row-height) * 2
+        + var(--record-row-height) * var(--visible-record-rows)
+    );
     overflow-y: auto;
     background-color: white;
     overscroll-behavior: none;

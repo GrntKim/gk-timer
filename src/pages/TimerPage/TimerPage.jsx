@@ -9,7 +9,7 @@ import RecordsDisplay from './components/RecordsDisplay/RecordsDisplay';
 export default function Timer() {
     const { scramble, isLoading, nextScramble } = useScramble('333');
     const { solves, addSolve, resetSolves, editSolve, deleteSolve } = useSolves();
-    // idle, ready, running, stopped
+    // idle, holding, ready, running, stopped
     const [timerStatus, setTimerStatus] = useState('idle');
     const [penalty, setPenalty] = useState('none');
 
