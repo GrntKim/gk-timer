@@ -7,6 +7,7 @@ export default function Stopwatch({ timerStatus, setTimerStatus, onReset, penalt
 
     const startTimeRef = useRef(null);
     const frameRef = useRef(null);
+    const readyTimeoutRef = useRef(null);
 
     function start() {
         startTimeRef.current = performance.now() - elapsedMs;
@@ -47,11 +48,17 @@ export default function Stopwatch({ timerStatus, setTimerStatus, onReset, penalt
                 return;
             } 
             if (e.code === 'Space') {
+
                 if (e.repeat) return;
                 e.preventDefault();
 
                 if (timerStatus === 'idle') {
-                    setTimerStatus('ready');
+                    setTimerStatus('holding');
+                    readyTimeoutRef.current = setTimeout(() => {
+                        setTimerStatus('ready');
+                        readyTimeoutRef.current = null;
+                    }, 500);
+
                     return;
                 }
 
@@ -72,9 +79,19 @@ export default function Stopwatch({ timerStatus, setTimerStatus, onReset, penalt
             if (e.code !== 'Space') return;
             e.preventDefault();
 
+            if (readyTimeoutRef.current) {
+                clearTimeout(readyTimeoutRef.current);
+                readyTimeoutRef.current = null;
+            }
+
             if (timerStatus === 'ready') {
                 start();
                 setTimerStatus('running');
+            }
+
+            if (timerStatus === 'holding') {
+                setTimerStatus('idle');
+                return;
             }
         }
 
@@ -86,6 +103,15 @@ export default function Stopwatch({ timerStatus, setTimerStatus, onReset, penalt
             window.removeEventListener('keyup', handleKeyUp);
         }
     }, [timerStatus, elapsedMs, penalty])
+
+    useEffect(() => {
+        return () => {
+            if (readyTimeoutRef.current) {
+                clearTimeout(readyTimeoutRef.current);
+                readyTimeoutRef.current = null;
+            }
+        }
+    }, []);
 
     useEffect(() => {
         if (timerStatus !== 'running') return;
@@ -119,6 +145,8 @@ export default function Stopwatch({ timerStatus, setTimerStatus, onReset, penalt
             <div className={'time-display' + 
                             (timerStatus === 'ready' 
                             ? ' ready'
+                            : timerStatus === 'holding'
+                            ? ' holding'
                             : timerStatus === 'running'
                             ? ' running'
                             : '')}

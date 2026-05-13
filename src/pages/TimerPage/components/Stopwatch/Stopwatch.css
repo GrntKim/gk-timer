@@ -39,3 +39,7 @@
 .time-display.running {
     color: blue;
 }
+
+.time-display.holding {
+    color: red;
+}
