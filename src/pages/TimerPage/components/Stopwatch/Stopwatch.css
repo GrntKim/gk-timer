@@ -36,7 +36,8 @@
     color: green;
 }
 
-.time-display.running {
+.time-display.running,
+.time-display.stopped {
     color: blue;
 }
 

@@ -2,12 +2,19 @@ import { formatTime } from '../../../../lib/time/formatTime';
 import { useEffect, useRef, useState } from 'react';
 import './Stopwatch.css';
 
-export default function Stopwatch({ timerStatus, setTimerStatus, onReset, penalty, setPenalty}) {
+export default function Stopwatch({ 
+    timerStatus, 
+    setTimerStatus, 
+    onReset, 
+    penalty, 
+    setPenalty }) {
     const [elapsedMs, setElapsedMs] = useState(0);
 
     const startTimeRef = useRef(null);
     const frameRef = useRef(null);
     const readyTimeoutRef = useRef(null);
+
+    let holdingDelay = 500;
 
     function start() {
         startTimeRef.current = performance.now() - elapsedMs;
@@ -57,7 +64,7 @@ export default function Stopwatch({ timerStatus, setTimerStatus, onReset, penalt
                     readyTimeoutRef.current = setTimeout(() => {
                         setTimerStatus('ready');
                         readyTimeoutRef.current = null;
-                    }, 500);
+                    }, holdingDelay);
 
                     return;
                 }
@@ -142,26 +149,18 @@ export default function Stopwatch({ timerStatus, setTimerStatus, onReset, penalt
 
     return (
         <div className='stopwatch-container'>
-            <div className={'time-display' + 
-                            (timerStatus === 'ready' 
-                            ? ' ready'
-                            : timerStatus === 'holding'
-                            ? ' holding'
-                            : timerStatus === 'running'
-                            ? ' running'
-                            : '')}
-            >
+            <div className={`time-display ${timerStatus}`}>
                 {getDisplayTime()}
             </div>
             <div className="btn-container">
-                <button
-                    className='reset-button'
+                <button className='reset-button'
                     onClick={reset}
-                    hidden={timerStatus !== 'stopped'}>
+                    hidden={timerStatus !== 'stopped'}
+                >
                     Continue
                 </button>
-                <button
-                    className={'pt-button' + (penalty === '+2' ? ' active' : '')}
+
+                <button className={'pt-button' + (penalty === '+2' ? ' active' : '')}
                     onClick={() => {
                         if (penalty === '+2') setPenalty('none');
                         else setPenalty('+2');
@@ -170,8 +169,8 @@ export default function Stopwatch({ timerStatus, setTimerStatus, onReset, penalt
                 >
                     {penalty === '+2' ? 'Cancel' : '+2'}
                 </button>
-                <button
-                    className={'dnf-button' + (penalty === 'DNF' ? ' active' : '')}
+
+                <button className={'dnf-button' + (penalty === 'DNF' ? ' active' : '')}
                     onClick={() => {
                         if (penalty === 'DNF') setPenalty('none');
                         else setPenalty('DNF');

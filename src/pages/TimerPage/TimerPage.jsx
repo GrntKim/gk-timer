@@ -3,17 +3,17 @@ import { useState } from 'react';
 import { useScramble } from '../../hooks/useScramble';
 import ScrambleDisplay from './components/ScrambleDisplay/ScrambleDisplay';
 import Stopwatch from './components/Stopwatch/Stopwatch';
-import './TimerPage.css';
 import RecordsDisplay from './components/RecordsDisplay/RecordsDisplay';
+import './TimerPage.css';
 
-export default function Timer() {
+export default function TimerPage() {
     const { scramble, isLoading, nextScramble } = useScramble('333');
     const { solves, addSolve, resetSolves, editSolve, deleteSolve } = useSolves();
     // idle, holding, ready, running, stopped
     const [timerStatus, setTimerStatus] = useState('idle');
     const [penalty, setPenalty] = useState('none');
 
-    function handleStop(timeMs, penalty) {
+    function fetchSolve(timeMs, penalty) {
         if (!scramble) return;
         addSolve({
             eventId: scramble.eventName,
@@ -36,7 +36,7 @@ export default function Timer() {
                 <Stopwatch
                     timerStatus={timerStatus}
                     setTimerStatus={setTimerStatus}
-                    onReset={handleStop}
+                    onReset={fetchSolve}
                     penalty={penalty}
                     setPenalty={setPenalty}
                 />
