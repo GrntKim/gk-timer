@@ -15,6 +15,7 @@ export default function Stopwatch({
     const readyTimeoutRef = useRef(null);
 
     let holdingDelay = 500;
+    const skip = true;
 
     function start() {
         startTimeRef.current = performance.now() - elapsedMs;
@@ -26,8 +27,8 @@ export default function Stopwatch({
         setElapsedMs(finalTimeMs);
     }
 
-    function reset() {
-        onReset(elapsedMs, penalty);
+    function reset(skip = false) {
+        if(!skip) onReset(elapsedMs, penalty);
         setPenalty('none');
         setElapsedMs(0);
         startTimeRef.current = null;
@@ -52,6 +53,10 @@ export default function Stopwatch({
                 if (e.repeat || timerStatus !== 'stopped') return;
                 if (penalty === 'DNF') setPenalty('none');
                 else setPenalty('DNF');
+                return;
+            } 
+            if (e.code === 'Digit3') {
+                if (confirm('Skip this solve?')) reset(skip);
                 return;
             } 
             if (e.code === 'Space') {
@@ -178,6 +183,15 @@ export default function Stopwatch({
                     hidden={timerStatus !== 'stopped'}
                 >
                     {penalty === 'DNF' ? 'Cancel' : 'DNF'}
+                </button>
+
+                <button className='skip-button'
+                    onClick={() => {
+                        if (confirm('Skip this solve?')) reset(skip);
+                    }}
+                    hidden={timerStatus !== 'stopped'}
+                >
+                    Skip
                 </button>
             </div>
         </div>
