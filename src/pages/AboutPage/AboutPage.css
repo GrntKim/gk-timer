@@ -29,3 +29,18 @@
     align-items: center;
     gap: 0.5rem;
 }
+
+.about-page .contents a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0;
+    color: var(--color-text-muted);
+    text-decoration: none;
+}
+
+.about-page .contents a:hover {
+    background: none;
+    color: var(--color-text-muted);
+    text-decoration: underline;
+}
