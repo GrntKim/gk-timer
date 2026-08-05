@@ -42,7 +42,7 @@ export default function TimerPage() {
                     setPenalty={setPenalty}
                 />
             </div>
-            <div className="record-container">
+            <div className="records-panel">
                 <RecordsDisplay
                     solves={solves}
                     timerStatus={timerStatus}

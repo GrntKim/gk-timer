@@ -18,17 +18,13 @@ export default function StatsSummary({ solves }) {
     ];
 
     return (
-        <div className="stats-container">
-            <table className="stats-list">
-                <tbody>
-                    {stats.map(({ label, value }) => (
-                        <tr key={label}>
-                            <th>{label}</th>
-                            <td>{formatStat(value)}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+        <div className="stats-strip">
+            {stats.map(({ label, value }) => (
+                <div className="stat-item" key={label}>
+                    <span className="stat-label">{label}</span>
+                    <span className="stat-value">{formatStat(value)}</span>
+                </div>
+            ))}
         </div>
     );
 }

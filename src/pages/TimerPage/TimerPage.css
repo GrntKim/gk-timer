@@ -5,7 +5,7 @@
 }
 
 .timer-scramble,
-.record-container {
+.records-panel {
     flex: 1;
     min-width: 0;
 }
@@ -13,5 +13,11 @@
 .timer-scramble {
     display: flex;
     flex-direction: column;
+}
+
+.records-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 

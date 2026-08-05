@@ -1,25 +1,41 @@
 header {
-    padding: 1em 1em;
+    padding: 1em 1.5em;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.logo a {
+    padding: 0;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-accent);
+}
+
+.logo a:hover {
+    background: none;
+    color: var(--color-accent-hover);
 }
 
 a {
     display: inline-block;
     padding: 0.5rem 0.75rem;
-    border-radius: 5px;
+    border-radius: var(--radius-sm);
     text-decoration: none;
-    color: black;
+    color: var(--color-text);
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 a:hover {
-    background-color: #eee;
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent);
 }
 
 .list-menus a.active {
-    background-color: #eee;
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent);
 }
 
 .menus .list-menus {

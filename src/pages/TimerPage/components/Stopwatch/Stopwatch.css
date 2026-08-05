@@ -16,31 +16,56 @@
 }
 
 .btn-container button {
-    background-color: #eee;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
     padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    cursor: pointer;
 }
 
 .btn-container button:hover {
-    background-color: lightgrey;
-    color: black;
+    background-color: var(--color-row-alt);
+}
+
+.reset-button {
+    border-color: var(--color-accent) !important;
+    color: var(--color-accent) !important;
+}
+
+.reset-button:hover {
+    background-color: var(--color-accent-soft) !important;
+}
+
+.pt-button.active {
+    background-color: var(--color-accent) !important;
+    border-color: var(--color-accent) !important;
+    color: #fff !important;
+}
+
+.dnf-button.active {
+    background-color: var(--color-danger) !important;
+    border-color: var(--color-danger) !important;
+    color: #fff !important;
 }
 
 .time-display {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
     font-size: 10em;
     font-weight: bold;
+    color: var(--color-text);
 }
 
 .time-display.ready {
-    color: green;
+    color: var(--color-success);
 }
 
 .time-display.running,
 .time-display.stopped {
-    color: blue;
+    color: var(--color-accent);
 }
 
 .time-display.holding {
-    color: red;
+    color: var(--color-danger);
 }
