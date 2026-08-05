@@ -10,7 +10,6 @@ export default function Header() {
             <div className="menus">
                 <ul className="list-menus">
                     <li><NavLink to="/">Timer</NavLink></li>
-                    <li><NavLink to="/setup">Settings</NavLink></li>
                     <li><NavLink to="/about">About</NavLink></li>
                 </ul>
             </div>
