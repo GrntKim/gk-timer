@@ -1,13 +1,27 @@
 import { formatTime } from '../../../../lib/time/formatTime';
+import { useEffect, useState } from 'react';
 import './RecordsDisplay.css';
 
-export default function RecordsDisplay({ solves, timerStatus, resetSolves, editSolve, deleteSolve }) {
+export default function RecordsDisplay({ solves, timerStatus, resetSolves, deleteSolve }) {
+    const [openScramble, setOpenScramble] = useState(null);
+
+    useEffect(() => {
+        if (!openScramble) return;
+
+        function handleKeyDown(e) {
+            if (e.code === 'Escape') setOpenScramble(null);
+        }
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [openScramble]);
+
     return (
-        <div className="record-container">
+        <div className="record-table-wrap">
             <table className='solve-list'>
                 <thead>
                     <tr>
-                        <th colSpan={7}>
+                        <th colSpan={6}>
                             <button className="timer-reset-btn"
                                 onClick={() => {
                                     if(solves.length !== 0 && confirm("Are you sure you want to delete all records?")) {
@@ -23,10 +37,9 @@ export default function RecordsDisplay({ solves, timerStatus, resetSolves, editS
                         <th>NO.</th>
                         <th>Time</th>
                         <th>Event</th>
-                        <th>Scramble</th>
                         <th>Penalty</th>
+                        <th>Scramble</th>
                         <th>Delete</th>
-                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,10 +55,12 @@ export default function RecordsDisplay({ solves, timerStatus, resetSolves, editS
                                     }
                                 </td>
                                 <td>{solve.eventId}</td>
-                                <td>{solve.scramble.scrambleText}</td>
                                 <td>{solve.penalty === 'none' ? '' : solve.penalty}</td>
                                 <td>
-                                    <button onClick={() => {
+                                    <button className="show-btn" onClick={() => setOpenScramble(solve.scramble.scrambleText)}>Show</button>
+                                </td>
+                                <td>
+                                    <button className="delete-btn" onClick={() => {
                                         if(confirm("Are you sure you want to delete this record?")) {
                                             deleteSolve(solve.id);
                                         }
@@ -53,12 +68,19 @@ export default function RecordsDisplay({ solves, timerStatus, resetSolves, editS
                                     Delete
                                     </button>
                                 </td>
-                                <td><button onClick={() => editSolve(solve.id)}>Edit</button></td>
                             </tr>
                         );
                     })}
                 </tbody>
             </table>
+            {openScramble && (
+                <div className="scramble-modal-backdrop" onClick={() => setOpenScramble(null)}>
+                    <div className="scramble-modal" onClick={(e) => e.stopPropagation()}>
+                        <button className="scramble-modal-close" onClick={() => setOpenScramble(null)}>×</button>
+                        <p className="scramble-modal-text">{openScramble}</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

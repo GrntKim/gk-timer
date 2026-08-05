@@ -11,26 +11,37 @@
 .solve-list th,
 .solve-list td {
     height: var(--record-row-height);
-    padding: 0 0.5rem;
+    padding: 0 0.75rem;
     text-align: left;
 }
 
-.solve-list tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
+.solve-list td:first-child,
+.solve-list td:nth-child(2) {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
 }
 
-.record-container {
+.solve-list tbody tr:nth-child(even) {
+    background-color: var(--color-row-alt);
+}
+
+.solve-list tbody tr:hover {
+    background-color: var(--color-accent-soft);
+}
+
+.record-table-wrap {
     --record-header-row-height: 2.75rem;
     --record-row-height: 2.5rem;
     --visible-record-rows: 12;
-    padding-right: 1.5em;
     max-height: calc(
         var(--record-header-row-height) * 2
         + var(--record-row-height) * var(--visible-record-rows)
     );
     overflow-y: auto;
-    background-color: white;
     overscroll-behavior: none;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
 }
 
 .timer-reset-btn {
@@ -40,11 +51,29 @@
     width: 100%;
     height: 100%;
     margin: 0;
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+.timer-reset-btn:hover:not(:disabled) {
+    background-color: var(--color-danger-soft);
+    color: var(--color-danger);
+}
+
+.timer-reset-btn:disabled {
+    color: var(--color-border);
+    cursor: not-allowed;
 }
 
 .solve-list thead th {
     position: sticky;
-    background-color: white;
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-weight: 500;
 }
 
 .solve-list thead tr:first-child th {
@@ -56,4 +85,70 @@
 .solve-list thead tr:nth-child(2) th {
     top: var(--record-header-row-height);
     z-index: 2;
+}
+
+.delete-btn,
+.edit-btn,
+.show-btn {
+    background: none;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    color: var(--color-text-muted);
+}
+
+.delete-btn:hover {
+    background-color: var(--color-danger-soft);
+    color: var(--color-danger);
+}
+
+.edit-btn:hover,
+.show-btn:hover {
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent);
+}
+
+.scramble-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.scramble-modal {
+    position: relative;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    max-width: 480px;
+}
+
+.scramble-modal-text {
+    font-family: var(--font-mono);
+    word-break: break-all;
+    margin: 0;
+}
+
+.scramble-modal-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    width: 1.75rem;
+    height: 1.75rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.scramble-modal-close:hover {
+    background-color: var(--color-row-alt);
 }
