@@ -4,7 +4,7 @@ Simple twisty puzzle timer
 
 ### URL
 
-https://gktimer.grntcds.net/
+https://grntkim.github.io/gk-timer/
 
 --- 
 
