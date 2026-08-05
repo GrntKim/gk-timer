@@ -4,6 +4,7 @@ import { useScramble } from '../../hooks/useScramble';
 import ScrambleDisplay from './components/ScrambleDisplay/ScrambleDisplay';
 import Stopwatch from './components/Stopwatch/Stopwatch';
 import RecordsDisplay from './components/RecordsDisplay/RecordsDisplay';
+import StatsSummary from './components/StatsSummary/StatsSummary';
 import './TimerPage.css';
 
 export default function TimerPage() {
@@ -49,6 +50,7 @@ export default function TimerPage() {
                     editSolve={editSolve}
                     deleteSolve={deleteSolve}
                 />
+                <StatsSummary solves={solves} />
             </div>
         </div>
     );

@@ -1,0 +1,19 @@
+.stats-container {
+    margin-top: 1rem;
+}
+
+.stats-list {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.stats-list th,
+.stats-list td {
+    height: var(--record-row-height, 2.5rem);
+    padding: 0 0.5rem;
+    text-align: left;
+}
+
+.stats-list tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
