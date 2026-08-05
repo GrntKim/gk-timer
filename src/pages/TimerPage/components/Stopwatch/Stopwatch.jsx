@@ -159,7 +159,7 @@ export default function Stopwatch({
             </div>
             <div className="btn-container">
                 <button className='reset-button'
-                    onClick={reset}
+                    onClick={() => reset()}
                     hidden={timerStatus !== 'stopped'}
                 >
                     Continue
