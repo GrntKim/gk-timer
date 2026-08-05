@@ -21,5 +21,5 @@ https://gktimer.grntcds.net/
     - [React](https://github.com/facebook/react)
     - [Cubing.js](https://github.com/cubing/cubing.js/)
 
-- Deplyment
+- Deployment
     - Github Pages
