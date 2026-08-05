@@ -5,7 +5,7 @@ export default function Header() {
     return (
         <header>
             <div className="logo">
-                <Link to="/">GK-TIMER <em>BETA</em></Link>
+                <Link to="/">GK-TIMER</Link>
             </div>
             <div className="menus">
                 <ul className="list-menus">
